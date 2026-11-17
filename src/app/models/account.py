@@ -1,7 +1,18 @@
-from dataclasses import dataclass
+from datetime import date
+from sqlalchemy import Date, Integer, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from app.models.base import Base
 
-@dataclass
-class Account:
-    account_id: int
-    customer_id: int
-    account_type: str
+class Complaint(Base):
+    __tablename__ = "complaint"
+
+    complaint_id: Mapped[int] = mapped_column(Integer,primary_key=True)
+    customer_id: Mapped[int] = mapped_column(Integer)
+    account_id: Mapped[int] = mapped_column(Integer)
+    category: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String)
+    date_opened: Mapped[date] = mapped_column(Date)
+    date_closed: Mapped[date | None] = mapped_column(Date,nullable=True)
+    channel: Mapped[str] = mapped_column(String)
+    priority: Mapped[str] = mapped_column(String)
+    complaint_text: Mapped[str | None] = mapped_column(String,nullable=True)

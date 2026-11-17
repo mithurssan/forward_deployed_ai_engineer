@@ -1,8 +1,11 @@
-from dataclasses import dataclass
+from sqlalchemy import Integer, String
+from sqlalchemy.orm import Mapped, mapped_column
+from app.models.base import Base
 
-@dataclass
-class Customer:
-    customer_id: int
-    first_name: str
-    last_name: str
-    email: str
+class Customer(Base):
+    __tablename__ = "customer"
+
+    customer_id: Mapped[int] = mapped_column(Integer,primary_key=True)
+    first_name: Mapped[str] = mapped_column(String)
+    last_name: Mapped[str] = mapped_column(String)
+    email: Mapped[str] = mapped_column(String)
