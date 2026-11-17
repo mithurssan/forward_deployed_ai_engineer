@@ -1,21 +1,24 @@
 import os
-import sqlite3
+from contextlib import contextmanager
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 class DatabaseManager:
     def __init__(self):
-        self.db_path = os.getenv("DATABASE_PATH", "complaints.db")
-        self.connection = None
+        database_url = os.getenv(
+            "DATABASE_URL",
+            "sqlite:///complaints.db"
+        )
 
-    def __enter__(self):
-        self.connection = sqlite3.connect(self.db_path)
-        self.connection.row_factory=sqlite3.Row
-        return self.connection
-    
-    def __exit__(self, exc_type, exc_value, traceback):
-        try:
-            if exc_type is None:
-                self.connection.commit()
-            else:
-                self.connection.rollback()
-        finally:
-            self.connection.close()
+        self.engine = create_engine(database_url)
+
+        self.SessionLocal = sessionmaker(
+            bind=self.engine
+        )
+
+    @contextmanager
+    def transaction(self):
+        with self.SessionLocal() as session:
+            with session.begin():
+                yield session

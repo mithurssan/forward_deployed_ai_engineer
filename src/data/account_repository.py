@@ -1,25 +1,18 @@
-from app.database.database_manager import DatabaseManager
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 from app.models.account import Account
 
 class AccountRepository:
-    def get_for_customer(self, customer_id):
-        with DatabaseManager() as db:
-            cursor = db.execute(
-                """
-                SELECT account_id, customer_id, account_type
-                FROM account
-                WHERE customer_id = ?
-                """,
-                (customer_id,)
-            )
 
-            row = cursor.fetchall()
+    def __init__(self, session: Session):
+        self.session = session
 
-            return [
-                Account(
-                    account_id=row["account_id"]
-                    customer_id=row["customer_id"]
-                    account_type=row["account_type"]
-                )
-                for row in rows
-            ]
+    def get_for_customer(self, customer_id: int):
+
+        statement = select(Account).where(
+            Account.customer_id == customer_id
+        )
+
+        return list(
+            self.session.scalars(statement).all()
+        )

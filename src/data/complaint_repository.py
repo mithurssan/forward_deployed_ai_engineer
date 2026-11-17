@@ -1,135 +1,43 @@
-from app.database.database_manager import DatabaseManager
+from datetime import date
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 from app.models.complaint import Complaint
 
 class ComplaintRepository:
+
+    def __init__(self, session: Session):
+        self.session = session
+
     def get_by_id(self, complaint_id: int):
+        return self.session.get(
+            Complaint,
+            complaint_id
+        )
 
-        with DatabaseManager() as db:
-            cursor = db.execute(
-                """
-                SELECT complaint_id,
-                customer_id,
-                account_id,
-                category,
-                status,
-                date_opened,
-                date_closed,
-                channel
-                priority,
-                complaint_text
-                FROM complaint
-                WHERE complaint_id = ?
-                """,
-                (complaint_id)
-            )
+    def get_for_customer(self, customer_id: int):
 
-            row = cursor.fetchone()
+        statement = select(Complaint).where(
+            Complaint.customer_id == customer_id
+        )
 
-            if row is None:
-                return None
-            
-            return Complaint(
-                complaint_id=row["complaint_id"],
-                customer_id=row["customer_id"],
-                account_id=row["account_id"],
-                category=row["category"],
-                status=row["status"],
-                date_opened=row["date_opened"],
-                date_closed=row["dat_closed"],
-                channel=row["channel"]
-                priority=row["priority"],
-                complaint_text=row["complaint_text"]
-            )
+        return list(
+            self.session.scalars(statement).all()
+        )
 
-    def get_for_customer(self, customer_id):
-        with DatabaseManager() as db:
-            cursor = db.execute(
-                """
-                SELECT complaint_id,
-                customer_id,
-                account_id,
-                category,
-                status,
-                date_opened,
-                date_closed,
-                channel
-                priority,
-                complaint_text
-                FROM complaint
-                WHERE customer_id = ?
-                """,
-                (customer_id,)
-            )
-
-            rows = cursor.fetchall()
-
-            return [
-                Complaint(
-                complaint_id=row["complaint_id"],
-                customer_id=row["customer_id"],
-                account_id=row["account_id"],
-                category=row["category"],
-                status=row["status"],
-                date_opened=row["date_opened"],
-                date_closed=row["dat_closed"],
-                channel=row["channel"]
-                priority=row["priority"],
-                complaint_text=row["complaint_text"]
-                )
-                for row in rows
-            ]
-    
-    def create(
+    def update_status(
         self,
-        customer_id: int,
-        account_id: int,
-        category: str,
+        complaint_id: int,
         status: str,
-        date_opened: str,
-        channel: str,
-        priority: str,
-        complaint_text: str
+        date_closed: date | None = None
     ):
-        with DatabaseManager() as db:
-            cursor = db.execute(
-                """
-                INSERT INTO complaint (
-                    customer_id,
-                    account_id,
-                    category,
-                    status,
-                    date_opened,
-                    date_closed,
-                    channel,
-                    priority,
-                    complaint_text
-                )
-                VALUES (?,?,?,?,?,?,?,?,?)
-                """,
-                (
-                    customer_id,
-                    account_id,
-                    category,
-                    status,
-                    date_opened,
-                    None,
-                    channel,
-                    priority,
-                    comaplint_text
-                )
-            )
+        complaint = self.get_by_id(complaint_id)
 
-            complaint_id = cursor.lastrowid
+        if complaint is None:
+            return 0
 
-            return Complaint(
-                complaint_id=complaint_id,
-                customer_id=customer_id,
-                account_id=account_id,
-                category=category,
-                status=status,
-                date_opened=date_opened,
-                date_closed=None,
-                channel=channel,
-                priority=priority,
-                complaitn_text=complaint_text
-            )
+        complaint.status = status
+        complaint.date_closed = date_closed
+
+        self.session.flush()
+
+        return 1
