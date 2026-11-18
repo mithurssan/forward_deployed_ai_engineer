@@ -1,5 +1,5 @@
 from datetime import date
-from sqlalchemy import Date, Integer, String
+from sqlalchemy import Date, Integer, String, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from app.models.base import Base
 
@@ -7,7 +7,7 @@ class Complaint(Base):
     __tablename__ = "complaint"
 
     complaint_id: Mapped[int] = mapped_column(Integer,primary_key=True)
-    customer_id: Mapped[int] = mapped_column(Integer)
+    customer_id: Mapped[int] = mapped_column(ForeignKey("customer.customer_id"))
     account_id: Mapped[int] = mapped_column(Integer)
     category: Mapped[str] = mapped_column(String)
     status: Mapped[str] = mapped_column(String)
