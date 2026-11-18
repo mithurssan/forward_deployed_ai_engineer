@@ -12,7 +12,7 @@ from src.data.service_request_repository import ServiceRequestRepository
 from src.domain.errors import (
     ApprovalRequired,
     ComplaintNotFound,
-    CustomerNotFound
+    CustomerNotFound,
     ForbiddenRole,
     InvalidTransition,
 )
@@ -50,18 +50,18 @@ def _v(value):
 class ComplaintService:
 
     def __init__(self, db, Repositories=make_repositories, today=date.today):
-        self.db: db
-        self.repositories = repositories
+        self.db = db
+        self.repositories = Repositories
         self.today = today
     
     def get_customer(self, customer_id):
-        with self.db.transation() as session:
+        with self.db.transaction() as session:
             repos = self.repositories(session)
 
             customer = repos.customers.get_by_id(customer_id)
         
         if customer is None:
-            raise ComplaintNotFound(
+            raise CustomerNotFound(
                 f"Customer {customer_id} not found."
             )
         return customer
@@ -95,7 +95,7 @@ class ComplaintService:
             )
 
             if complaint is None:
-                raise NotFound(
+                raise ComplaintNotFound(
                     f"Complaint {complaint_id} not found."
                 )
             
@@ -104,7 +104,7 @@ class ComplaintService:
                 repos
             )
     
-    def _complaint_with_chidren(self, complaint, repos):
+    def _complaint_with_children(self, complaint, repos):
         history = repos.history.get_for_complaint(
             complaint.complaint_id
         )
@@ -126,6 +126,20 @@ class ComplaintService:
             "history": history,
             "linked_service_requests": requests,
         }
+
+    def get_customer_complaint_history(self, customer_id):
+        with self.db.transaction() as session:
+            repos = self.repositories(session)
+        
+            customer = repos.customers.get_by_id(customer_id)
+
+            if customer is None:
+                raise CustomerNotFound(
+                    f"Customer {customer_id} not found."
+                )
+            
+            return repos.complaints.get_for_customer(customer_id)
+
 
     def change_status(
         self,

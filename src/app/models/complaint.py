@@ -1,7 +1,7 @@
 from datetime import date
 from sqlalchemy import Date, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
-from app.models.base import Base
+from src.app.models.base import Base
 
 class Complaint(Base):
     __tablename__ = "complaint"

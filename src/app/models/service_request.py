@@ -1,7 +1,7 @@
 from datetime import date
 from sqlalchemy import Date, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
-from app.models.base import Base
+from src.app.models.base import Base
 
 class ServiceRequest(Base):
     __tablename__ = "service_requests"

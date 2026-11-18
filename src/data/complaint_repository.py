@@ -1,7 +1,7 @@
 from datetime import date
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from app.models.complaint import Complaint
+from src.app.models.complaint import Complaint
 
 class ComplaintRepository:
 
