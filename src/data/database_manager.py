@@ -4,14 +4,11 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from src.config import settings
+
 class DatabaseManager:
     def __init__(self):
-        database_url = os.getenv(
-            "DATABASE_URL",
-            "sqlite:///complaints.db"
-        )
-
-        self.engine = create_engine(database_url)
+        self.engine = create_engine(settings.DATABASE_URL)
 
         self.SessionLocal = sessionmaker(
             bind=self.engine
