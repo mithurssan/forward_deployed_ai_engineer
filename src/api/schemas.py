@@ -17,3 +17,8 @@ class ComplaintStatusUpdate(BaseModel):
     role: str
     actor_id: str | None = None
 
+class ErrorResponse(BaseModel):
+    code: str
+    message: str
+    correlation_id: str
+
