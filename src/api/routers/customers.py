@@ -7,14 +7,15 @@ router = APIRouter()
 
 @router.get("/customers/{customer_id}")
 def get_customer(
-    customer_id: str,
+    customer_id: int,
     service: ComplaintService = Depends(get_complaint_service),
 ):
     return service.get_customer(customer_id)
 
+
 @router.get("/customers/{customer_id}/complaints")
 def get_customer_complaint_history(
-    customer_id: str,
+    customer_id: int,
     service: ComplaintService = Depends(get_complaint_service),
 ):
     return service.get_customer_complaint_history(customer_id)

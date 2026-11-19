@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from src.app.models.complaint_status_history import ComplaintStatusHistory
 
 class HistoryRepository:
     def __init__(self, session: Session):

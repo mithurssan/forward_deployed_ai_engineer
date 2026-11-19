@@ -32,3 +32,6 @@ class InternalError(Exception):
     message = (
         "Unexpected error. Quote the correlation ID when reporting it."
     )
+
+class AccountNotFound(Exception):
+    pass

@@ -41,3 +41,25 @@ class ComplaintRepository:
         self.session.flush()
 
         return 1
+
+    def next_id(self):
+        statement = (
+            select(Complaint.complaint_id)
+            .order_by(Complaint.complaint_id.desc())
+            .limit(1)
+        )
+
+        highest_id = self.session.scalar(statement)
+
+        if highest_id is None:
+            return "CP00001"
+        
+        number = int(highest_id[2:]) + 1
+
+        return f"CP{number:05d}"
+
+    def create(self, complaint):
+        self.session.add(complaint)
+        self.session.flush()
+
+        return complaint.complaint_id

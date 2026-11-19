@@ -1,7 +1,7 @@
 from datetime import date
 from sqlalchemy import Date, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
-from app.models.base import Base
+from src.app.models.base import Base
 
 class ComplaintStatusHistory(Base):
     __tablename__ = "complaint_status_history"

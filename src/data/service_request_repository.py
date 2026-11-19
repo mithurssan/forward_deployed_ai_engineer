@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from src.app.models.service_request import ServiceRequest
 
 class ServiceRequestRepository:
     def __init__(self,session):

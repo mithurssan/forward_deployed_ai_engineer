@@ -7,6 +7,12 @@ class AccountRepository:
     def __init__(self, session: Session):
         self.session = session
 
+    def get_by_id(self, account_id: str):
+        return self.session.get(
+            Account,
+            account_id
+        )
+
     def get_for_customer(self, customer_id: int):
 
         statement = select(Account).where(
