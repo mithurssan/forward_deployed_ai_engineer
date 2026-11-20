@@ -80,6 +80,20 @@ class BrokenComplaintService:
 
         body = response.json()
 
+        assert body["code"] == "INTERNAL ERROR"
+
+        assert body["message"] == (
+            "Unexpected error. Quote the correlation ID"
+            "when reporting it."
+        )
+
+        assert "correlation_id" in body
+
+        assert (
+            "INTERNAL DATABASE INFORMATION - DON'T LEAK"
+            not in str(body)
+        )
+
 from src.domain.errors import DependencyUnavailable
 
 def test_unavailable_dependency_returns_503():
