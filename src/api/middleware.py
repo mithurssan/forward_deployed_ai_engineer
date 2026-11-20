@@ -20,6 +20,7 @@ async def request_middleware(request: Request, call_next):
 
     try:
         response = await call_next(request)
+        response.headers["X-Correlation-ID"] = correlation_id
 
         outcome = (
             "success"
