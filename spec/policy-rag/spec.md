@@ -99,7 +99,7 @@ The service must repect user permissions and document access restrictions.
 
 The service must fail safely and must not generate unsupported policy answers when required evidence is unavailable.
 
-## Traceability
+### Traceability
 
 Answers must be traceable to their supporting policy sources through citations.
 
