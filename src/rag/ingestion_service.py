@@ -15,6 +15,22 @@ REQUIRED_FIELDS = {
     "relative_path",
 }
 
+CATEGORY_BY_SOURCE_ID = {
+    "KB-001": "Complaint Management",
+    "KB-002": "Escalation and Approval",
+    "KB-003": "Fees, Charges and Interest",
+    "KB-004": "Digital Banking and Account Access",
+    "KB-005": "Customer Service and Accessibility",
+    "KB-006": "Mortgage Servicing",
+    "KB-007": "Complaint Investigation and Resolution",
+    "KB-008": "AI Governance and Information Security",
+    "KB-009": "Complaint Operations Knowledge",
+    "KB-010": "Historical Complaint Cases",
+    "BUL-2026-01": "Escalation and Approval",
+    "BUL-2026-02": "RAG Governance and Citation Controls",
+    "KB-001-OLD": "Complaint Management",
+}
+
 class IngestionService:
     def __init__(
         self,
@@ -84,18 +100,6 @@ class IngestionService:
                 )
                 continue
             
-            if not (row.get("category") or "").strip():
-                warnings.append(
-                    {
-                        "file": relative_path,
-                        "source_id": source_id,
-                        "reason": "missing_category",
-                        "message": (
-                            f"Category is missing for source_id "
-                            f"'{source_id}'."
-                        ),
-                    }
-                )
             if source_id_counts[source_id] > 1:
                 rejected.append(
                     {
@@ -164,6 +168,21 @@ class IngestionService:
             source_id = row["source_id"]
             relative_path = row["relative_path"]
 
+            category = CATEGORY_BY_SOURCE_ID.get(source_id)
+
+            if category is None:
+                warnings.append(
+                    {
+                        "file": relative_path,
+                        "source_id": source_id,
+                        "reason": "category_not_mapped",
+                        "message": (
+                            f"No category mapping exists for "
+                            f"source_id '{source_id}'."
+                        )
+                    }
+                )
+
             file_path = (
                 self.supporting_documents_dir
                 / relative_path
@@ -200,40 +219,19 @@ class IngestionService:
 
             checksum = self._calculate_checksum(file_path)
 
-            pre_chunks = []
-
-            for section in sections:
-                sequence = section["sequence"]
-
-                pre_chunks.append(
-                    {
-                        "chunk_id": (
-                            f"{source_id}-CHUNK-{sequence:03d}"
-                        ),
-                        "source_id": source_id,
-                        "heading_section": section["section_title"],
-                        "sequence": sequence,
-                        "access_label": row["access_label"].strip(),
-                        "text": section["text"],
-                    }
-                )       
-
-
             normalised_documents.append(
                 {
                     "source_id": source_id,
                     "title": row["title"].strip(),
                     "document_type": row["document_type"].strip(),
-                    "category": (
-                        (row.get("category") or "").strip() or None
-                    ),
+                    "category": category,
                     "version": row["version"].strip(),
                     "effective_date": row["effective_date"].strip(),
                     "access_label": row["access_label"].strip(),
                     "checksum": checksum,
                     "status": row["status"].strip(),
                     "relative_path": relative_path,
-                    "pre_chunks": pre_chunks,
+                    "sections": sections,
                 }
             )
 
