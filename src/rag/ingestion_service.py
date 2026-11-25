@@ -96,7 +96,20 @@ class IngestionService:
                         ),
                     }
                 )
-
+            if source_id_counts[source_id] > 1:
+                rejected.append(
+                    {
+                        "file": relative_path,
+                        "source_id": source_id,
+                        "reason": "duplicate_source_id",
+                        "message": (
+                            f"source_id '{source_id}' appears more than once "
+                            "in the manifest."
+                        ),
+                    }
+                )
+                continue
+                
             if path_counts[relative_path] > 1:
                 rejected.append(
                     {
@@ -225,6 +238,7 @@ class IngestionService:
             )
 
         return {
+            "accepted": accepted_documents,
             "normalised_documents": normalised_documents,
             "rejected": rejected,
             "warnings": warnings,
