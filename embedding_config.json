@@ -1,0 +1,8 @@
+{
+    "api": "AI API configured through environment variables",
+    "embedding_model": "read from AI_EMBEDDING_MODEL",
+    "dimensions": null,
+    "batch_size": 32,
+    "normalise": true,
+    "secrets": "never in this file; .env only"
+}
