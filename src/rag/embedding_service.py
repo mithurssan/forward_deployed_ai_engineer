@@ -23,7 +23,7 @@ def load_jsonl(path):
     return records
 
 
-def write_json1(records, path):
+def write_jsonl(records, path):
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with path.open("w", encoding="utf-8") as file:
@@ -37,13 +37,21 @@ def write_json1(records, path):
                 + "\n"
             )
 
+def create_embedding(client, model, text):
+    result = client.models.embed_content(
+        model=model,
+        contents=text,
+    )
+
+    return result.embeddings[0].values
+
 def create_embedding_with_retry(
     client,
     model,
     text,
     max_retries=MAX_RETRIES,
 ):
-    for attempt in rannge(1, max_retries + 1):
+    for attempt in range(1, max_retries + 1):
         try:
             return create_embedding(
                 client=client,
@@ -74,7 +82,7 @@ def main():
 
     if not api_key:
         raise ValueError(
-            "AI_AI_KEY is missing from .env"
+            "AI_API_KEY is missing from .env"
         )
 
     if not model:
@@ -158,7 +166,7 @@ def main():
                 )
 
             #save after every batch
-            write_json1(
+            write_jsonl(
                 list(records_by_id.values()),
                 output_path,
             )
@@ -192,7 +200,7 @@ def main():
         print(f"Existing records skipped: {skipped}")
         print(f"Total embeddings saved: {len(records_by_id)}")
         print(f"Failures: {len(failures)}")
-        print(f"Outpu: {output_path}")
+        print(f"Output: {output_path}")
         print(f"Run log: {run_log_path}")
 
 if __name__ == "__main__":

@@ -1,5 +1,8 @@
 __pycache__
+*.pyc
 *.db
 .venv
 sample_logs.jsonl
 *.env
+data/processed/embeddings.jsonl
+data/vector_index/

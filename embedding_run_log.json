@@ -1,0 +1,10 @@
+{
+  "batch_size": 10,
+  "chunks_loaded": 105,
+  "embedding_generated": 3,
+  "existing_records_skipped": 102,
+  "failure_count": 0,
+  "failures": [],
+  "model": "gemini-embedding-2",
+  "total_embeddings_saved": 105
+}
