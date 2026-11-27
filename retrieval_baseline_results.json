@@ -1,0 +1,72 @@
+{
+  "query": "How quickly must customer complaints be acknowledged?",
+  "results": [
+    {
+      "chunk_id": "KB-001_structure_006",
+      "distance": 0.2408,
+      "metadata": {
+        "access_label": "Internal",
+        "category": "Complaint Management",
+        "checksum": "e36cd02d5ca9161a8da428666f386bf51f05579b3d7657ea407f01d88c6f859f",
+        "chunk_sequence": 6,
+        "document_type": "Policy",
+        "effective_date": "2026-01-01",
+        "embedding_model": "gemini-embedding-2",
+        "heading": "5. Acknowledgement and Ownership",
+        "relative_path": "01_Current_Approved_Policies/KB-001_Enterprise_Complaint_Management_Policy.docx",
+        "source_id": "KB-001",
+        "status": "Approved",
+        "strategy": "structure_aware",
+        "title": "Enterprise Complaint Management Policy",
+        "version": "3.0"
+      },
+      "score": 0.7592,
+      "text": "• If the case is unassigned, the operational exception view must surface it. Reassigning ownership does not reset complaint-age measures.\n• Acknowledgement records the date, channel and plain-language summary of what was understood. It must not promise an outcome before investigation.\n6. Triage and Classification\n• Use only approved category and urgency values. An unknown or mixed matter may use Other / Needs Review and must be routed for clarification."
+    },
+    {
+      "chunk_id": "KB-005_structure_002",
+      "distance": 0.241,
+      "metadata": {
+        "access_label": "Internal",
+        "category": "Customer Service and Accessibility",
+        "checksum": "443a7ba261e35adc07d5c034739b35b9a2c53af6043dd7fbdc07e781b04cf1f3",
+        "chunk_sequence": 2,
+        "document_type": "Policy",
+        "effective_date": "2026-04-01",
+        "embedding_model": "gemini-embedding-2",
+        "heading": "2. Acknowledgement Content",
+        "relative_path": "01_Current_Approved_Policies/KB-005_Customer_Service_Communication_and_Accessibility_Standard.docx",
+        "source_id": "KB-005",
+        "status": "Approved",
+        "strategy": "structure_aware",
+        "title": "Customer Service, Communication and Accessibility Standard",
+        "version": "2.0"
+      },
+      "score": 0.759,
+      "text": "• Information received and still required.\n• Owner or team and next action.\n• How updates will be provided.\n• No premature promise of outcome.\n3. Status Updates\n• State completed work, outstanding evidence, blocker and next checkpoint.\n• If overdue, acknowledge delay and record recovery action.\n• Do not reset dates or close/reopen cases to disguise age.\n4. Resolution Communication\n• Complaint and requested outcome understood.\n• Evidence and approved policy reviewed."
+    },
+    {
+      "chunk_id": "KB-001_structure_002",
+      "distance": 0.257,
+      "metadata": {
+        "access_label": "Internal",
+        "category": "Complaint Management",
+        "checksum": "e36cd02d5ca9161a8da428666f386bf51f05579b3d7657ea407f01d88c6f859f",
+        "chunk_sequence": 2,
+        "document_type": "Policy",
+        "effective_date": "2026-01-01",
+        "embedding_model": "gemini-embedding-2",
+        "heading": "1. Policy Objective and Scope",
+        "relative_path": "01_Current_Approved_Policies/KB-001_Enterprise_Complaint_Management_Policy.docx",
+        "source_id": "KB-001",
+        "status": "Approved",
+        "strategy": "structure_aware",
+        "title": "Enterprise Complaint Management Policy",
+        "version": "3.0"
+      },
+      "score": 0.743,
+      "text": "1. Policy Objective and Scope\nThis policy defines the end-to-end operating standard for receiving, acknowledging, triaging, investigating, resolving, reviewing, communicating and closing complaints in the synthetic retail-bank environment. The policy applies to complaints received through contact centre, branch, email, secure message, mobile, web and written correspondence. The policy covers personal banking, cards, deposits, digital banking and mortgage servicing scenarios used in this training programme."
+    }
+  ],
+  "top_k": 3
+}

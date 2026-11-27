@@ -95,6 +95,11 @@ def create_vector_index(rebuild=False):
     collection = client.get_or_create_collection(
         name=COLLECTION_NAME,
         embedding_function=None,
+        configuration={
+            "hnsw": {
+                "space": "cosine"
+            }
+        },
     )
 
     for batch_start in range(0, len(records), BATCH_SIZE):

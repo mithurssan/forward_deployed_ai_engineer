@@ -1,0 +1,77 @@
+{
+  "filters": {
+    "access_label": "Internal",
+    "document_type": "Policy",
+    "version": "3.0"
+  },
+  "query": "complaint acknowledgement",
+  "results": [
+    {
+      "chunk_id": "KB-001_structure_006",
+      "distance": 0.2712,
+      "metadata": {
+        "access_label": "Internal",
+        "category": "Complaint Management",
+        "checksum": "e36cd02d5ca9161a8da428666f386bf51f05579b3d7657ea407f01d88c6f859f",
+        "chunk_sequence": 6,
+        "document_type": "Policy",
+        "effective_date": "2026-01-01",
+        "embedding_model": "gemini-embedding-2",
+        "heading": "5. Acknowledgement and Ownership",
+        "relative_path": "01_Current_Approved_Policies/KB-001_Enterprise_Complaint_Management_Policy.docx",
+        "source_id": "KB-001",
+        "status": "Approved",
+        "strategy": "structure_aware",
+        "title": "Enterprise Complaint Management Policy",
+        "version": "3.0"
+      },
+      "score": 0.7288,
+      "text": "• If the case is unassigned, the operational exception view must surface it. Reassigning ownership does not reset complaint-age measures.\n• Acknowledgement records the date, channel and plain-language summary of what was understood. It must not promise an outcome before investigation.\n6. Triage and Classification\n• Use only approved category and urgency values. An unknown or mixed matter may use Other / Needs Review and must be routed for clarification."
+    },
+    {
+      "chunk_id": "KB-001_structure_004",
+      "distance": 0.2898,
+      "metadata": {
+        "access_label": "Internal",
+        "category": "Complaint Management",
+        "checksum": "e36cd02d5ca9161a8da428666f386bf51f05579b3d7657ea407f01d88c6f859f",
+        "chunk_sequence": 4,
+        "document_type": "Policy",
+        "effective_date": "2026-01-01",
+        "embedding_model": "gemini-embedding-2",
+        "heading": "4. Intake Standard",
+        "relative_path": "01_Current_Approved_Policies/KB-001_Enterprise_Complaint_Management_Policy.docx",
+        "source_id": "KB-001",
+        "status": "Approved",
+        "strategy": "structure_aware",
+        "title": "Enterprise Complaint Management Policy",
+        "version": "3.0"
+      },
+      "score": 0.7102,
+      "text": "• When customer identity is unresolved, record the complaint but prevent customer-specific data retrieval until identity is validated through an approved process.\n• Account ID is optional for non-account-specific matters. Null account ID must not cause the complaint to disappear from operational views.\n• Record explicit accessibility, language or communication-channel requests exactly as stated. Do not infer protected or sensitive personal characteristics."
+    },
+    {
+      "chunk_id": "KB-001_structure_003",
+      "distance": 0.2981,
+      "metadata": {
+        "access_label": "Internal",
+        "category": "Complaint Management",
+        "checksum": "e36cd02d5ca9161a8da428666f386bf51f05579b3d7657ea407f01d88c6f859f",
+        "chunk_sequence": 3,
+        "document_type": "Policy",
+        "effective_date": "2026-01-01",
+        "embedding_model": "gemini-embedding-2",
+        "heading": "4. Intake Standard",
+        "relative_path": "01_Current_Approved_Policies/KB-001_Enterprise_Complaint_Management_Policy.docx",
+        "source_id": "KB-001",
+        "status": "Approved",
+        "strategy": "structure_aware",
+        "title": "Enterprise Complaint Management Policy",
+        "version": "3.0"
+      },
+      "score": 0.7019,
+      "text": "4. Intake Standard\n• Create or reference a unique complaint ID. Record received timestamp, channel, narrative, available customer ID, optional account/product reference and explicitly requested outcome.\n• Preserve the customer’s meaning. A concise summary may be added, but the original narrative remains available and is not silently overwritten."
+    }
+  ],
+  "top_k": 3
+}
